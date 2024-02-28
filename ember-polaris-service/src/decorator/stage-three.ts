@@ -274,14 +274,8 @@ export function decoratorFor<T>(
       type NonVoid<T> = T extends void ? never : T;
       type Return = NonVoid<ReturnType<ServiceClassAutoAccessorDecorator<T>>>;
 
-      let value: T | undefined;
-
       const get = function (this: object) {
-        if (value === undefined) {
-          value = service(this, name);
-        }
-
-        return value;
+        return service(this, name);
       } satisfies Return['get'];
 
       let set: Return['set'] | undefined;
